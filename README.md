@@ -25,6 +25,8 @@ Notes:
 
 [https://www.smspower.org/Development/ROMHeader](https://www.smspower.org/Development/ROMHeader)
 
+GG ではチェックサムのチェックがされないためチェックサム計算が正しいかは検証してません。
+
 ## License
 
 [MIT](LICENSE.txt)
