@@ -2,6 +2,7 @@
 
 自作のゲームギアソフトを実機で動かすために必要なヘッダ情報を書き込むツールです。
 
+## Usage
 
 ```bash
 gghead [-p PRODUCT_CODE]
@@ -23,4 +24,8 @@ Notes:
 以下の情報を参考にしました。
 
 [https://www.smspower.org/Development/ROMHeader](https://www.smspower.org/Development/ROMHeader)
+
+## License
+
+[MIT](LICENSE.txt)
 
