@@ -2,6 +2,13 @@
 
 自作のゲームギアソフトを実機で動かすために必要なヘッダ情報を書き込むツールです。
 
+## How to Build (Linux)
+
+```bash
+sudo apt install build-essential
+make
+```
+
 ## Usage
 
 ```bash
