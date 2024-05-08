@@ -10,7 +10,7 @@ static int hex2i(const char* str, int keta)
     }
     int result = 0;
     for (int i = 0; i < keta; i++) {
-        result <<= 8;
+        result <<= 4;
         if (isdigit(str[i])) {
             result |= str[i] - '0';
         } else {
@@ -124,7 +124,13 @@ int main(int argc, char* argv[])
         sum += val;
     }
     memcpy(&rom[0x7FFA], &sum, 2);
-    printf("checksum: %04X\n", sum);
+
+    // Dump
+    printf("eyecatch: \"%c%c%c%c%c%c%c%c%c%c\"\n", rom[0x7FF0], rom[0x7FF1], rom[0x7FF2], rom[0x7FF3], rom[0x7FF4], rom[0x7FF5], rom[0x7FF6], rom[0x7FF7], rom[0x7FF8], rom[0x7FF9]);
+    printf("checksum: 0x%02X%02X\n", rom[0x7FFB] & 0xFF, rom[0x7FFA] & 0xFF);
+    printf(" product: 0x%01X%02X%02X (%X)\n", (rom[0x7FFE] & 0xF0) / 16, rom[0x7FFD] & 0xFF, rom[0x7FFC] & 0xFF, productCode);
+    printf(" version: 0x%01X\n", rom[0x7FFE] & 0x0F);
+    printf("  region: 0x%01X\n", (rom[0x7FFF] & 0xF0) >> 4);
 
     // Update ROM file
     fp = fopen(path, "wb");
