@@ -141,6 +141,7 @@ int main(int argc, char* argv[])
         memcpy(&val, &rom[i << 1], 2);
         sum += val;
     }
+    sum = 0 - sum;
     memcpy(&rom[0x7FFA], &sum, 2);
 
     // Dump
@@ -150,6 +151,14 @@ int main(int argc, char* argv[])
     printf(" version: 0x%01X\n", rom[0x7FFE] & 0x0F);
     printf("  region: 0x%01X\n", (rom[0x7FFF] & 0xF0) >> 4);
     printf("    size: 0x%01X (%s)\n", rom[0x7FFF] & 0x0F, sizestr(rom[0x7FFF]));
+
+    // Validate checksum
+    sum = 0;
+    for (int i = 0; i < size / 2; i++) {
+        memcpy(&val, &rom[i << 1], 2);
+        sum += val;
+    }
+    printf("Check sum validation: %s\n", sum ? "NG" : "OK");
 
     // Update ROM file
     fp = fopen(path, "wb");
