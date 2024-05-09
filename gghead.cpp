@@ -26,6 +26,24 @@ static int hex2i(const char* str, int keta)
     return result;
 }
 
+static const char* sizestr(char size)
+{
+    static const char* sa = "8KB / 64k-bits";
+    static const char* sb = "16KB / 128k-bits";
+    static const char* sc = "32KB / 256k-bits";
+    static const char* sd = "48KB / 384k-bits";
+    static const char* se = "64B / 512k-bits";
+    static const char* sf = "128KB / 1m-bits";
+    static const char* s0 = "256KB / 2m-bits";
+    static const char* s1 = "512KB / 4m-bits";
+    static const char* s2 = "1024KB / 8m-bits";
+    static const char* s3 = "2048KB / 16m-bits";
+    static const char* s4 = "4096KB / 32m-bits";
+    static const char* s5 = "Unknown";
+    const char* results[] = {s0, s1, s2, s3, s4, s5, s5, s5, s5, s5, sa, sb, sc, sd, se, sf};
+    return results[size & 0x0F];
+}
+
 int main(int argc, char* argv[])
 {
     const char* path = nullptr;
@@ -131,6 +149,7 @@ int main(int argc, char* argv[])
     printf(" product: 0x%01X%02X%02X\n", (rom[0x7FFE] & 0xF0) / 16, rom[0x7FFD] & 0xFF, rom[0x7FFC] & 0xFF);
     printf(" version: 0x%01X\n", rom[0x7FFE] & 0x0F);
     printf("  region: 0x%01X\n", (rom[0x7FFF] & 0xF0) >> 4);
+    printf("    size: 0x%01X (%s)\n", rom[0x7FFF] & 0x0F, sizestr(rom[0x7FFF]));
 
     // Update ROM file
     fp = fopen(path, "wb");
